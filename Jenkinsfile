@@ -35,8 +35,10 @@ pipeline {
                 echo "Password: ${params.PASSWORD}"
             }
         }
-        steps('Environments'){
-            sh 'env'
+        stage('Environments'){
+            steps{
+                sh 'env'
+            }
         }
         stage('Deploy') {
             steps {
