@@ -4,6 +4,10 @@ pipeline {
         timeout(time: 1, unit: 'MINUTES')
         disableConcurrentBuilds()
     }
+    environment { 
+        PROJECT = 'expense'
+        DEPLOY_TO = 'dev'
+    }
     parameters {
         string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
         text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
@@ -31,10 +35,21 @@ pipeline {
                 echo "Password: ${params.PASSWORD}"
             }
         }
+        steps('Environments'){
+            sh 'env'
+        }
         stage('Deploy') {
             steps {
                 sh 'echo "Im in Deploy"'
             }
+        }
+    }
+    post {
+        success { 
+            echo 'Well done!'
+        }
+        always { 
+            echo 'I will always say Hello again!'
         }
     }
 }
