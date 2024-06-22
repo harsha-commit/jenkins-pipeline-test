@@ -37,7 +37,7 @@ pipeline {
         }
         stage('Environments'){
             steps{
-                sh 'env'
+                sh 'env | grep DEPLOY_TO'
             }
         }
         stage('Deploy') {
